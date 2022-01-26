@@ -1,2 +1,2 @@
 # cse210-02
-Team 7 Design for Hi Lo
+Team 8 Design for Hi Lo
