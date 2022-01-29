@@ -17,12 +17,12 @@ namespace Team.Game
         static bool hilo(){
           int n1 = GetCard1();
           int n2 = GetCard2();
-          bool r = false;
+          bool v = false;
           if(n1 < n2){
-              r = true;
+              v = true;
           }
-          else r = false;
-          return r;  
+          else v = false;
+          return v;  
         }
 
     }
