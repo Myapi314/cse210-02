@@ -11,21 +11,15 @@ namespace Team.Game
     /// </summary>
     public class Director
     {
-        List<Die> dice = new List<Die>();
+        Card card = new Card();
         bool isPlaying = true;
-        int score = 0;
-        int totalScore = 0;
+        int totalScore = 300;
 
         /// <summary>
         /// Constructs a new instance of Director.
         /// </summary>
         public Director()
         {
-            for (int i = 0; i < 5; i++)
-            {
-                Die die = new Die();
-                dice.Add(die);
-            }
         }
 
         /// <summary>
@@ -33,7 +27,7 @@ namespace Team.Game
         /// </summary>
         public void StartGame()
         {
-            while (isPlaying)
+            while (isPlaying && totalScore > 0)
             {
                 GetInputs();
                 DoUpdates();
@@ -41,17 +35,24 @@ namespace Team.Game
             }
 
             // Game over message.
-            Console.WriteLine("You did not roll a 5 or 1. \n GAME OVER");
+            if (!isPlaying)
+            {
+                Console.WriteLine($"You have ended the game with {totalScore} points. ");
+                Console.WriteLine("Thanks for playing!");
+            }
+            else if (totalScore <= 0){
+                Console.WriteLine("You have run out of points! \n YOU LOSE!");
+            }
         }
 
         /// <summary>
-        /// Asks the user if they want to roll.
+        /// Asks the user if they want to draw a card.
         /// </summary>
         public void GetInputs()
         {
-            Console.Write("Roll dice? [y/n] ");
-            string rollDice = Console.ReadLine();
-            isPlaying = (rollDice == "y");
+            Console.Write("Draw a card? [y/n] ");
+            string drawCard = Console.ReadLine();
+            isPlaying = (drawCard == "y");
         }
 
         /// <summary>
@@ -64,14 +65,8 @@ namespace Team.Game
                 return;
             }
 
-            score = 0;
-            foreach (Die die in dice)
-            {
-                die.Roll();
-                score += die.points;
-                die.display_values();
-            }
-            totalScore += score;
+            card.GetCard1();
+            card.GetCard2();
         }
 
         /// <summary>
@@ -84,15 +79,27 @@ namespace Team.Game
                 return;
             }
 
-            string values = "";
-            foreach (Die die in dice)
+            card.displayCard1();
+            Console.Write("Higher or lower? (h/l) ");
+            string playerGuess = Console.ReadLine();
+            card.displayCard2();
+
+            bool guessLower = (playerGuess == "h");
+
+            if (guessLower && card.isHigher())
             {
-                values += $"{die.value} ";
+                totalScore += 100;
+            }
+            else if (!guessLower && !card.isHigher())
+            {
+                totalScore += 100;
+            }
+            else
+            {
+                totalScore -= 75;
             }
 
-            Console.WriteLine($"You rolled: {values}");
             Console.WriteLine($"Your score is: {totalScore}\n");
-            isPlaying = (score > 0);
         }
     }
 }
