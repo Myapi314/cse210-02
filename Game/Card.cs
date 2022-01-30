@@ -31,12 +31,12 @@ namespace Team.Game
 
         /*Display First Card Value*/
 
-        public void displayCard1()
+        public void DisplayCard1()
         {
             Console.WriteLine($"The card is: {cardOne}");
         }
         //Display Second Card Value//
-        public void displayCard2()
+        public void DisplayCard2()
         {
             Console.WriteLine($"The next card was: {cardTwo}");
         }

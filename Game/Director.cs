@@ -30,7 +30,7 @@ namespace Team.Game
             while (isPlaying && totalScore > 0)
             {
                 GetInputs();
-                DoUpdates();
+                DrawCards();
                 DoOutputs();
             }
 
@@ -56,9 +56,9 @@ namespace Team.Game
         }
 
         /// <summary>
-        /// Updates the player's score.
+        /// Updates the two cards drawn.
         /// </summary>
-        public void DoUpdates()
+        public void DrawCards()
         {
             if (!isPlaying)
             {
@@ -70,7 +70,7 @@ namespace Team.Game
         }
 
         /// <summary>
-        /// Displays the dice and the score. Also asks the player if they want to roll again. 
+        /// Displays the cards, tracks the user's guess, and updates score.
         /// </summary>
         public void DoOutputs()
         {
@@ -79,18 +79,14 @@ namespace Team.Game
                 return;
             }
 
-            card.displayCard1();
+            card.DisplayCard1();
             Console.Write("Higher or lower? (h/l) ");
             string playerGuess = Console.ReadLine();
-            card.displayCard2();
+            card.DisplayCard2();
 
             bool guessLower = (playerGuess == "h");
 
-            if (guessLower && card.isHigher())
-            {
-                totalScore += 100;
-            }
-            else if (!guessLower && !card.isHigher())
+            if (guessLower == card.isHigher())
             {
                 totalScore += 100;
             }
