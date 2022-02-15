@@ -24,7 +24,7 @@ namespace Team.Game
             Random r2 = new Random();
             int card2 = r2.Next(1,13);
             while(cardOne == card2){
-                GetCard2();
+                card2 = r2.Next(1,13);
             }
             cardTwo = card2;
         }
